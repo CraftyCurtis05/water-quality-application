@@ -26,7 +26,7 @@ public class SensorService {
     //Get Sensor By Name
     public SensorDto getSensorByName(String name) {
         return restClient.get()
-                .uri("/api/sensor?sensorName={name}",name)
+                .uri("/api/sensor?sensor_name={name}",name)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(SensorDto.class);
@@ -90,7 +90,7 @@ public class SensorService {
     public List<SensorDto> deleteSensor(String name) {
 
         return restClient.delete()
-                .uri("api/sensor/{sensorName}",name)
+                .uri("api/sensor/{sensor_name}",name)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(List.class);

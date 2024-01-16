@@ -15,7 +15,7 @@ public class ReportService {
     //Get Sensor Report By Name
     public ReportDto getSensorReportByName(String sensorName) {
         return restClient.get()
-                .uri("/api/sensor/report?sensorName={name}", sensorName)
+                .uri("/api/report?sensor_name={name}", sensorName)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(ReportDto.class);
@@ -24,7 +24,7 @@ public class ReportService {
     //Get Sensor Report By Year
     public ReportDto getSensorReportByYear(String year) {
         return restClient.get()
-                .uri("/api/sensor/report?year={year}", year)
+                .uri("/api/report?year={year}", year)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(ReportDto.class);
@@ -33,7 +33,7 @@ public class ReportService {
     //Get Sensor Report By Year & Month
     public ReportDto getSensorReportByMonth(String yearMonth) {
         return restClient.get()
-                .uri("/api/sensor/report?year={year_month}", yearMonth)
+                .uri("/api/report?year_month={year_month}", yearMonth)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(ReportDto.class);

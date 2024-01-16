@@ -17,7 +17,7 @@ public class SensorDataService {
     //Get Sensor Data By Id
     public SensorDataDto getSensorDataById(Long id) {
         return restClient.get()
-                .uri("/api/sensor/data/{id}", id)
+                .uri("/api/sensordata/{id}", id)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(SensorDataDto.class);
@@ -26,7 +26,7 @@ public class SensorDataService {
     //Get Sensor Data By Name
     public SensorDataDto getSensorDataByName(String name) {
         return restClient.get()
-                .uri("/api/sensor/data?sensorName={name}", name)
+                .uri("/api/sensordata?sensor_name={name}", name)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(SensorDataDto.class);
@@ -35,16 +35,16 @@ public class SensorDataService {
     //Get Sensors By Year
     public SensorDataDto getSensorDataByYear(String year) {
         return restClient.get()
-                .uri("/api/sensor?year={year}", year)
+                .uri("/api/sensordata?year={year}", year)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(SensorDataDto.class);
     }
 
     //Get Sensors By Year & Month
-    public SensorDataDto getSensorDataByMonth(String year, String month) {
+    public SensorDataDto getSensorDataByMonth(String yearMonth) {
         return restClient.get()
-                .uri("/api/sensor/data?year={year}&month={month}", year, month)
+                .uri("/api/sensordata?year_month={year_month}", yearMonth)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(SensorDataDto.class);
@@ -55,7 +55,7 @@ public class SensorDataService {
         //SensorDataDto sensorDataDto = new SensorDataDto(5,"SNS-5", "iron","2015", "february", .06);
 
         return restClient.post()
-                .uri("/api/sensor/data")
+                .uri("/api/sensordata")
                 .body(sensorDataDto)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
@@ -67,7 +67,7 @@ public class SensorDataService {
         //SensorDataDto sensorDataDto = new SensorDataDto(5,"SNS-5", "iron","2019", "march", .06);
 
         return restClient.put()
-                .uri("/api/sensor/data")
+                .uri("/api/sensordata")
                 .body(sensorDataDto)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
@@ -78,7 +78,7 @@ public class SensorDataService {
     public List<SensorDataDto> deleteSensorData(String name) {
 
         return restClient.delete()
-                .uri("api/sensor/data/{sensorName}",name)
+                .uri("api/sensordata/{sensor_name}",name)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(List.class);

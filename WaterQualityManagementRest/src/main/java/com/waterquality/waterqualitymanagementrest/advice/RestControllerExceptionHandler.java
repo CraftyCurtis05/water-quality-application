@@ -1,7 +1,7 @@
 package com.waterquality.waterqualitymanagementrest.advice;
 
 import com.waterquality.waterqualitymanagementrest.dto.ErrorMessage;
-import com.waterquality.waterqualitymanagementrest.exception.SensorBadRequestException;
+import com.waterquality.waterqualitymanagementrest.exception.SensorDataInvalidException;
 import com.waterquality.waterqualitymanagementrest.exception.SensorNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,22 +13,22 @@ import java.util.Date;
 @RestControllerAdvice
 public class RestControllerExceptionHandler {
 
-    //400 BAD REQUEST (CLIENT REQUEST NOT UNDERSTOOD BC OF BAD SYNTAX; REQUEST MODIFICATION REQUIRED)
-    @ExceptionHandler(SensorBadRequestException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ErrorMessage sensorBadRequestException(SensorBadRequestException sensorBadRequestException) {
-
-        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.BAD_REQUEST.value(), new Date(), sensorBadRequestException.getMessage());
-
-        return errorMessage;
-    }
-
-    //404 NOT FOUND (SERVER CAN NOT FIND REQUESTED RESOURCE)
+    //404 NOT FOUND (GET/DELETE - SERVER CAN NOT FIND REQUESTED RESOURCE)
     @ExceptionHandler(SensorNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ErrorMessage sensorNotFoundException(SensorNotFoundException sensorNotFoundException) {
 
         ErrorMessage errorMessage = new ErrorMessage(HttpStatus.NOT_FOUND.value(), new Date(), sensorNotFoundException.getMessage());
+
+        return errorMessage;
+    }
+
+    //422 UNPROCESSABLE ENTITY (POST/PUT - ISSUE WITH REQUEST PAYLOAD; ENSURE FORMATTED CORRECTLY AND VALID)
+    @ExceptionHandler(SensorDataInvalidException.class)
+    @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
+    public ErrorMessage sensorDataInvalidException(SensorDataInvalidException sensorDataInvalidException) {
+
+        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.UNPROCESSABLE_ENTITY.value(), new Date(), sensorDataInvalidException.getMessage());
 
         return errorMessage;
     }

@@ -1,6 +1,7 @@
 package com.waterquality.waterqualitymanagementrest.api;
 
 import com.waterquality.waterqualitymanagementrest.dto.SensorDataDto;
+import com.waterquality.waterqualitymanagementrest.exception.SensorDataInvalidException;
 import com.waterquality.waterqualitymanagementrest.exception.SensorNotFoundException;
 import com.waterquality.waterqualitymanagementrest.service.SensorDataService;
 import lombok.RequiredArgsConstructor;
@@ -22,18 +23,18 @@ public class SensorDataController {
             return sensorDataService.getSensorDataById(id);
         }
         catch (Exception exception) {
-            throw new SensorNotFoundException("Sensor Data for id : "+ id +" Not Found!");
+            throw new SensorNotFoundException("Sensor Data For ID: " + id + " Not Found!");
         }
     }
 
     //Get Sensor Data By Name
     @GetMapping("/sensordata")
-    public SensorDataDto getSensorDataByName(@RequestParam(name = "sensorName") String parameter) {
+    public SensorDataDto getSensorDataByName(@RequestParam(name = "sensor_name") String name) {
         try {
-            return sensorDataService.getSensorDataByName(parameter);
+            return sensorDataService.getSensorDataByName(name);
         }
         catch (Exception exception) {
-            throw new SensorNotFoundException("Sensor Data with name: " + parameter + " Not Found!");
+            throw new SensorNotFoundException("Sensor Data With Name: " + name + " Not Found!");
         }
     }
 
@@ -44,36 +45,51 @@ public class SensorDataController {
             return sensorDataService.getSensorDataByYear(year);
         }
         catch (Exception exception) {
-            throw new SensorNotFoundException("Sensor Data for year: " + year + " Not Found!");
+            throw new SensorNotFoundException("Sensor Data In Year: " + year + " Not Found!");
         }
     }
 
     //Get Sensors By Year & Month
-    @GetMapping("/sensordata/{year}/{month}")
-    public SensorDataDto getSensorDataByMonth(@PathVariable("year") String year, @PathVariable("month") String month) {
+    @GetMapping("/sensordata/{year_month}")
+    public SensorDataDto getSensorDataByMonth(@PathVariable("year_month") String yearMonth) {
         try {
-            return sensorDataService.getSensorDataByMonth(year, month);
+            return sensorDataService.getSensorDataByMonth(yearMonth);
         }
         catch (Exception exception) {
-            throw new SensorNotFoundException("Sensor Data for month/year: " + month + "/" + year + " Not Found!");
+            throw new SensorNotFoundException("Sensor Data In Year/Month: " + yearMonth + " Not Found!");
         }
     }
 
     //Save(Post) Sensor Data
     @PostMapping("/sensordata")
     public List<SensorDataDto> saveSensorData(@RequestBody SensorDataDto sensorDataDto) {
-        return sensorDataService.saveSensorData(sensorDataDto);
+        try {
+            return sensorDataService.saveSensorData(sensorDataDto);
+        }
+        catch (Exception exception) {
+            throw new SensorDataInvalidException("Error Saving New Sensor Data! Ensure Sensor Data is Formatted Correctly.");
+        }
     }
 
     //Update(Put) Sensor Data
     @PutMapping("/sensordata")
     public List<SensorDataDto> updateSensorData(@RequestBody SensorDataDto sensorDataDto) {
-        return sensorDataService.updateSensorData(sensorDataDto);
+        try {
+            return sensorDataService.updateSensorData(sensorDataDto);
+        }
+        catch (Exception exception) {
+            throw new SensorDataInvalidException("Error Updating Sensor Data! Ensure Sensor Data is Formatted Correctly.");
+        }
     }
 
     //Delete Sensor Data By Name
     @DeleteMapping("sensordata/{name}")
     public List<SensorDataDto> deleteSensorData(@PathVariable String name) {
-        return sensorDataService.deleteSensorData(name);
+        try {
+            return sensorDataService.deleteSensorData(name);
+        }
+        catch (Exception exception) {
+            throw new SensorNotFoundException("Data For Sensor With Name: " + name + " Not Found!");
+        }
     }
 }
