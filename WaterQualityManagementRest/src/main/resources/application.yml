@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: dev
+
+server:
+  port: 8080
+
+REMOTE_BASE_URI : http://localhost:8080/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
