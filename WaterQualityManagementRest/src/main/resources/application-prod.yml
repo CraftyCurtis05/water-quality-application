@@ -1,4 +1,7 @@
 spring:
+  sql:
+    init:
+      mode: always
   datasource:
     url: jdbc:postgresql://localhost:5432/water_quality_production
     username: postgres
@@ -9,3 +12,4 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+      show-sql: false

@@ -1,11 +1,15 @@
 spring:
+  sql:
+    init:
+      mode: always
   datasource:
     url: jdbc:postgresql://localhost:5432/water_quality_test
     username: postgres
     password: postgres1
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: none #create, validate, create-drop, update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+      show-sql: true
