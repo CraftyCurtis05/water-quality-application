@@ -5,7 +5,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 
 @Entity
-@Table(name="wq_sensor_develop") //table name
+@Table(name="wq_sensor") //table name
 @Data
 @Getter
 @Setter
@@ -13,13 +13,13 @@ import org.springframework.data.annotation.Id;
 public class Sensor {
 
     @Id //primary key
-    @GeneratedValue(strategy= GenerationType.IDENTITY) //AUTO, IDENTITY, SEQUENCE, TABLE, TEMPORAL(date, time, etc)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //AUTO, IDENTITY, SEQUENCE, TABLE, TEMPORAL(date, time, etc)
+    private long sensorId;
 
     @Column(name = "sensor_name", nullable=false, length=20)
-    private String name;
+    private String sensorName;
 
-    private boolean active;
+    private boolean isActive;
 
-    private String description; //location
+    private String sensorDescription; //location
 }

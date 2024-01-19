@@ -1,7 +1,7 @@
 package com.waterquality.waterqualitymanagementrest.api;
 
 import com.waterquality.waterqualitymanagementrest.dto.ReportDto;
-import com.waterquality.waterqualitymanagementrest.exception.SensorNotFoundException;
+import com.waterquality.waterqualitymanagementrest.exception.SensorDataNotFoundException;
 import com.waterquality.waterqualitymanagementrest.service.ReportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,35 +13,25 @@ public class ReportController {
 
     private final ReportService reportService;
 
-    @GetMapping("/report")
-    public ReportDto getSensorReportByName(@RequestParam(name = "sensor_name") String name) {
+    //Get Sensor Data Report By Year
+    @GetMapping("report/{sensorId}/{year}")
+    public ReportDto getSensorReportByYear(@PathVariable Long sensorId, @PathVariable String year) {
         try {
-            return reportService.getSensorReportByName(name);
+            return reportService.findSensorReportByYear(sensorId, year);
         }
         catch (Exception exception) {
-            throw new SensorNotFoundException("Report For Sensor With Name: " + name + " Not Found!");
+            throw new SensorDataNotFoundException("Sensor Data for Sensor ID : " + sensorId + " In Year : " + year + " Not Found!");
         }
     }
 
-    //Get Sensor Report By Year
-    @GetMapping("/report/{year}")
-    public ReportDto getSensorReportByYear(@PathVariable String year) {
+    //Get Sensor Data Report By Year & Month
+    @GetMapping("report/{sensorId}/{year}/{month}")
+    public ReportDto getSensorReportByYearAndMonth(@PathVariable Long sensorId, @PathVariable String year, @PathVariable String month) {
         try {
-            return reportService.getSensorReportByYear(year);
+            return reportService.findSensorReportByYearAndMonth(sensorId, year, month);
         }
         catch (Exception exception) {
-            throw new SensorNotFoundException("Report For Sensor In Year: " + year + " Not Found!");
-        }
-    }
-
-    //Get Sensor Report By Year & Month
-    @GetMapping("/report/{year_month}")
-    public ReportDto getSensorReportByMonth(@PathVariable("year_month") String yearMonth) {
-        try {
-            return reportService.getSensorReportByMonth(yearMonth);
-        }
-        catch (Exception exception) {
-            throw new SensorNotFoundException("Report For Sensor In Year/Month: " + yearMonth + " Not Found!");
+            throw new SensorDataNotFoundException("Sensor Data for Sensor ID : " + sensorId + " In Year/Month : " + year + "/" + month + " Not Found!");
         }
     }
 }

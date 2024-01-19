@@ -4,13 +4,16 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name="parameter_wq_develop")
+@Table(name="wq_parameter")
 @Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Parameter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long parameterId;
 
-    private String name;
+    private String parameterName;
 }

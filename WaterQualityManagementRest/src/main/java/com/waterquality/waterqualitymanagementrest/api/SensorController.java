@@ -17,32 +17,32 @@ public class SensorController {
     private final SensorService sensorService;
 
     //Get Sensor By Id
-    @GetMapping("/sensor/{id}")
-    public SensorDto getSensorById(@PathVariable Long id) {
+    @GetMapping("sensor/{sensorId}")
+    public SensorDto getSensorById(@PathVariable Long sensorId) {
         try {
-            return sensorService.getSensorById(id);
+            return sensorService.getSensorById(sensorId);
         }
         catch (Exception exception) {
-            throw new SensorNotFoundException("Sensor Data For ID: " + id + " Not Found!");
+            throw new SensorNotFoundException("Sensor Data For Sensor ID : " + sensorId + " Not Found!");
         }
     }
 
     //Get Sensor By Name
-    @GetMapping("/sensor/{sensor_name}")
-    public SensorDto getSensorByName(@RequestParam(name = "sensor_name") String name) {
+    @GetMapping("sensor")
+    public SensorDto getSensorByName(@RequestParam(name = "sensorName") String sensorName) {
         try {
-            return sensorService.getSensorByName(name);
+            return sensorService.getSensorByName(sensorName);
         }
         catch (Exception exception) {
-            throw new SensorNotFoundException("Sensor Data With Name: " + name + " Not Found!");
+            throw new SensorNotFoundException("Sensor Data For Sensor Name : " + sensorName + " Not Found!");
         }
     }
 
     //Get All Sensors
-    @GetMapping("/sensor/all")
-    public List<SensorDto> getAllSensors() {
+    @GetMapping("sensor/all")
+    public List<SensorDto> getListOfAllSensors() {
         try {
-            return sensorService.getAllSensors();
+            return sensorService.getListOfAllSensors();
         }
         catch (Exception exception) {
             throw new SensorNotFoundException("Sensors Not Found!");
@@ -50,21 +50,21 @@ public class SensorController {
     }
 
     //Get Sensors By Status
-    @GetMapping("/sensor/status_list")
-   public List<SensorDto> getSensorsByStatus(@RequestParam(name = "status") boolean status) {
+    @GetMapping("sensor/list")
+   public List<SensorDto> getAllSensorsByStatus(@RequestParam(name = "status") boolean status) {
         try {
-            return sensorService.getSensorsByStatus(status);
+            return sensorService.getAllSensorsByStatus(status);
         }
         catch (Exception exception) {
-            throw new SensorNotFoundException("Sensor Data With Status: " + status + " Not Found!");
+            throw new SensorNotFoundException("Sensor Data With Active Status : " + status + " Not Found!");
         }
    }
 
-   //Save(Post) New Sensor
-   @PostMapping("/sensor")
-   public List<SensorDto> saveSensor(@RequestBody SensorDto sensorDto) {
+   //Add(Post) New Sensor
+   @PostMapping("sensor")
+   public List<SensorDto> addSensor(@RequestBody SensorDto sensorDto) {
         try {
-            return sensorService.saveSensor(sensorDto);
+            return sensorService.addSensor(sensorDto);
         }
         catch (Exception exception) {
             throw new SensorDataInvalidException("Error Saving New Sensor! Ensure Sensor is Formatted Correctly.");
@@ -72,35 +72,46 @@ public class SensorController {
    }
 
    //Update(Put) Sensor
-    @PutMapping("/sensor")
+    @PutMapping("sensor")
     public List<SensorDto> updateSensor(@RequestBody SensorDto sensorDto) {
        try {
            return sensorService.updateSensor(sensorDto);
        }
        catch (Exception exception) {
-           throw new SensorDataInvalidException("Error Updating Sensor Data! Ensure Sensor Data is Formatted Correctly.");
+           throw new SensorDataInvalidException("Error Updating Sensor! Ensure Sensor Data is Formatted Correctly.");
        }
     }
 
-    //Update(Patch) Sensor
-    @PatchMapping("/sensor")
-    public List<SensorDto> patchSensor(@RequestParam(name="sensorName") String name, @RequestParam String description) {
+    //Partially Update(Patch) Sensor
+    @PatchMapping("sensor")
+    public List<SensorDto> partiallyUpdateSensor(@RequestBody SensorDto sensorDto) {
         try {
-            return sensorService.patchSensor(name, description);
+            return sensorService.partiallyUpdateSensor(sensorDto);
         }
         catch (Exception exception) {
-            throw new SensorDataInvalidException("Error Updatng New Sensor! Ensure Sensor Data is Formatted Correctly.");
+            throw new SensorDataInvalidException("Error Updating Sensor! Ensure Sensor Data is Formatted Correctly.");
         }
     }
 
-    //Delete Sensor By Name
-    @DeleteMapping("/sensor/{name}")
-    public List<SensorDto> deleteSensor(@PathVariable String name) {
+    //Update(Patch) Sensor Name & Description
+    @PatchMapping("sensor")
+     public List<SensorDto> patchSensor(@RequestParam(name="sensorName") String sensorName, @RequestParam String description) {
         try {
-            return sensorService.deleteSensor(name);
+            return sensorService.patchSensor(sensorName, description);
         }
         catch (Exception exception) {
-            throw new SensorNotFoundException("Sensor With Name: " + name + " Not Found!");
+            throw new SensorDataInvalidException("Error Updating Sensor! Ensure Sensor Data is Formatted Correctly.");
+        }
+     }
+
+    //Delete Sensor By Name
+    @DeleteMapping("sensor/{sensorName}")
+    public List<SensorDto> deleteSensor(@PathVariable String sensorName) {
+        try {
+            return sensorService.deleteSensor(sensorName);
+        }
+        catch (Exception exception) {
+            throw new SensorNotFoundException("Sensor With Name: " + sensorName + " Not Found!");
         }
     }
 }

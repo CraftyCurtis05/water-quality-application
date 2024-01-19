@@ -9,11 +9,11 @@ import lombok.*;
 @NoArgsConstructor
 public class SensorDto {
 
-    private long id;
+    private long sensorId;
 
-    private String name;
+    private String sensorName;
 
-    private boolean active;
+    private boolean isActive;
 
-    private String description;
+    private String sensorDescription;
 }

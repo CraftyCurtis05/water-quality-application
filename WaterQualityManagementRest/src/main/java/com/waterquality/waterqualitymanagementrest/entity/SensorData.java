@@ -4,19 +4,23 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name="wq_sensor_data_develop")
+@Table(name="wq_sensor_data")
 @Data
 @Getter
 @Setter
+@NoArgsConstructor
 public class SensorData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long dataId;
 
     @ManyToOne
+    @JoinColumn(name = "sensor_id", nullable = false)
     private Sensor sensor;
 
+    @ManyToOne
+    @JoinColumn(name = "parameter_id", nullable = false)
     private Parameter parameter;
 
     private String year;
@@ -24,8 +28,4 @@ public class SensorData {
     private String month;
 
     private double parameterValue;
-
-    public boolean calculateIfTheParameterDrinkable() {
-        return true;
-    }
 }

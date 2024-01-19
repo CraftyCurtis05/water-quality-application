@@ -1,12 +1,14 @@
 package com.waterquality.waterqualitymanagementrest.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class ErrorMessage {
 
     private int statusCode;

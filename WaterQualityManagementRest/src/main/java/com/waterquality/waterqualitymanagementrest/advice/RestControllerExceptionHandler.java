@@ -2,6 +2,7 @@ package com.waterquality.waterqualitymanagementrest.advice;
 
 import com.waterquality.waterqualitymanagementrest.dto.ErrorMessage;
 import com.waterquality.waterqualitymanagementrest.exception.SensorDataInvalidException;
+import com.waterquality.waterqualitymanagementrest.exception.SensorDataNotFoundException;
 import com.waterquality.waterqualitymanagementrest.exception.SensorNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,12 +14,22 @@ import java.util.Date;
 @RestControllerAdvice
 public class RestControllerExceptionHandler {
 
-    //404 NOT FOUND (GET/DELETE - SERVER CAN NOT FIND REQUESTED RESOURCE)
+    //404 NOT FOUND - SENSOR (GET/DELETE - SERVER CAN NOT FIND REQUESTED RESOURCE)
     @ExceptionHandler(SensorNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ErrorMessage sensorNotFoundException(SensorNotFoundException sensorNotFoundException) {
 
         ErrorMessage errorMessage = new ErrorMessage(HttpStatus.NOT_FOUND.value(), new Date(), sensorNotFoundException.getMessage());
+
+        return errorMessage;
+    }
+
+    //404 NOT FOUND - SENSOR DATA (GET/DELETE - SERVER CAN NOT FIND REQUESTED RESOURCE)
+    @ExceptionHandler(SensorDataNotFoundException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ErrorMessage sensorNotFoundException(SensorDataNotFoundException sensorDataNotFoundException)
+    {
+        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.NOT_FOUND.value(), new Date(),sensorDataNotFoundException.getMessage());
 
         return errorMessage;
     }

@@ -17,51 +17,40 @@ public class SensorDataController {
     private final SensorDataService sensorDataService;
 
     //Get Sensor Data By Id
-    @GetMapping("/sensordata/{id}")
-    public SensorDataDto getSensorDataById(@PathVariable Long id) {
+    @GetMapping("sensordata/{sensorId}")
+    public SensorDataDto getSensorDataById(@PathVariable Long sensorId) {
         try {
-            return sensorDataService.getSensorDataById(id);
+            return sensorDataService.findSensorDataById(sensorId);
         }
         catch (Exception exception) {
-            throw new SensorNotFoundException("Sensor Data For ID: " + id + " Not Found!");
+            throw new SensorNotFoundException("Sensor Data For Sensor ID : " + sensorId + " Not Found!");
         }
     }
 
     //Get Sensor Data By Name
-    @GetMapping("/sensordata")
-    public SensorDataDto getSensorDataByName(@RequestParam(name = "sensor_name") String name) {
+    @GetMapping("sensordata")
+    public SensorDataDto getSensorDataByName(@RequestParam(name = "sensorName") String sensorName) {
         try {
-            return sensorDataService.getSensorDataByName(name);
+            return sensorDataService.findSensorDataByName(sensorName);
         }
         catch (Exception exception) {
-            throw new SensorNotFoundException("Sensor Data With Name: " + name + " Not Found!");
+            throw new SensorNotFoundException("Sensor Data With Sensor Name : " + sensorName + " Not Found!");
         }
     }
 
-    //Get Sensors By Year
-    @GetMapping("/sensordata/{year}")
-    public SensorDataDto getSensorDataByYear(@PathVariable String year) {
+    //Get Sensor Data List By Year & Month
+    @GetMapping("sensordata/{sensorId}/{year}/{month}")
+    public List<SensorDataDto> getSensorDataListByYearAndMonth(@PathVariable Long sensorId, @PathVariable String year, @PathVariable String month) {
         try {
-            return sensorDataService.getSensorDataByYear(year);
+            return sensorDataService.findSensorDataListByYearAndMonth(sensorId, year, month);
         }
         catch (Exception exception) {
-            throw new SensorNotFoundException("Sensor Data In Year: " + year + " Not Found!");
-        }
-    }
-
-    //Get Sensors By Year & Month
-    @GetMapping("/sensordata/{year_month}")
-    public SensorDataDto getSensorDataByMonth(@PathVariable("year_month") String yearMonth) {
-        try {
-            return sensorDataService.getSensorDataByMonth(yearMonth);
-        }
-        catch (Exception exception) {
-            throw new SensorNotFoundException("Sensor Data In Year/Month: " + yearMonth + " Not Found!");
+            throw new SensorNotFoundException("Sensor Data With Sensor ID : " + sensorId + " In Year/Month " + year + "/" + month + " Not Found!");
         }
     }
 
     //Save(Post) Sensor Data
-    @PostMapping("/sensordata")
+    @PostMapping("sensordata")
     public List<SensorDataDto> saveSensorData(@RequestBody SensorDataDto sensorDataDto) {
         try {
             return sensorDataService.saveSensorData(sensorDataDto);
@@ -72,7 +61,7 @@ public class SensorDataController {
     }
 
     //Update(Put) Sensor Data
-    @PutMapping("/sensordata")
+    @PutMapping("sensordata")
     public List<SensorDataDto> updateSensorData(@RequestBody SensorDataDto sensorDataDto) {
         try {
             return sensorDataService.updateSensorData(sensorDataDto);
@@ -82,14 +71,14 @@ public class SensorDataController {
         }
     }
 
-    //Delete Sensor Data By Name
-    @DeleteMapping("sensordata/{name}")
-    public List<SensorDataDto> deleteSensorData(@PathVariable String name) {
+    //Delete Sensor Data By Sensor ID
+    @DeleteMapping("sensordata/{sensorId}")
+    public List<SensorDataDto> deleteSensorData(@PathVariable Long sensorId) {
         try {
-            return sensorDataService.deleteSensorData(name);
+            return sensorDataService.deleteSensorData(sensorId);
         }
         catch (Exception exception) {
-            throw new SensorNotFoundException("Data For Sensor With Name: " + name + " Not Found!");
+            throw new SensorNotFoundException("Sensor With ID : " + sensorId + " Not Found!");
         }
     }
 }

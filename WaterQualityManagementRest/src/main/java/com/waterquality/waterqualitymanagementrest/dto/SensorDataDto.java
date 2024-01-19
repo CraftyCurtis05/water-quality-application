@@ -1,18 +1,19 @@
 package com.waterquality.waterqualitymanagementrest.dto;
 
-import com.waterquality.waterqualitymanagementrest.entity.Sensor;
-import com.waterquality.waterqualitymanagementrest.entity.Parameter;
 import lombok.*;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class SensorDataDto {
 
-    private long id;
+    private long dataId;
 
-    private SensorDto sensor;
+    private long sensorId;
 
-    private ParameterDto parameter;
+    private long parameterId;
 
     private String year;
 

@@ -1,13 +1,15 @@
 package com.waterquality.waterqualitymanagementrest.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class ParameterDto {
 
-    private long id;
+    private long parameterId;
 
-    private String name;
+    private String parameterName;
 }

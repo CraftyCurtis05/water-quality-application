@@ -7,11 +7,14 @@ import java.sql.SQLException;
 @SpringBootApplication
 public class WaterQualityManagementRestApplication {
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) {
 
 		SpringApplication.run(WaterQualityManagementRestApplication.class, args);
 	}
 }
+
+
+
 //		DataSource datasource = context.getBean(DataSource.class);
 //
 //		Environment environment environment = context.getBean(Environment.class);
