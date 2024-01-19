@@ -27,14 +27,14 @@ public class RestControllerExceptionHandler {
     //404 NOT FOUND - SENSOR DATA (GET/DELETE - SERVER CAN NOT FIND REQUESTED RESOURCE)
     @ExceptionHandler(SensorDataNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public ErrorMessage sensorNotFoundException(SensorDataNotFoundException sensorDataNotFoundException)
-    {
+    public ErrorMessage sensorNotFoundException(SensorDataNotFoundException sensorDataNotFoundException) {
+
         ErrorMessage errorMessage = new ErrorMessage(HttpStatus.NOT_FOUND.value(), new Date(),sensorDataNotFoundException.getMessage());
 
         return errorMessage;
     }
 
-    //422 UNPROCESSABLE ENTITY (POST/PUT - ISSUE WITH REQUEST PAYLOAD; ENSURE FORMATTED CORRECTLY AND VALID)
+    //422 UNPROCESSABLE ENTITY - UPDATES (POST/PUT - ISSUE WITH REQUEST PAYLOAD; ENSURE FORMATTED CORRECTLY AND VALID)
     @ExceptionHandler(SensorDataInvalidException.class)
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
     public ErrorMessage sensorDataInvalidException(SensorDataInvalidException sensorDataInvalidException) {

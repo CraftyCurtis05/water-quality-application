@@ -20,33 +20,41 @@ public class SensorDataService {
 
     private final SensorDataRepository sensorDataRepository;
     private final SensorRepository sensorRepository;
-
     private final ParameterRepository parameterRepository;
 
+    //Get Sensor Data By Id
     public SensorDataDto getSensorDataById(Long sensorId) {
+
         SensorData sensorData = sensorDataRepository.findById(sensorId).get();
         return SensorDataMapper.toDTO(sensorData);
     }
 
-    public List<SensorDataDto> getSensorDataBySensorName(String sensorName) {
-        Sensor sensor = sensorRepository.findSensorByName(sensorName);
+    //Get Sensor Data By Name
+    public List<SensorDataDto> getSensorDataByName(String sensorName) {
+
+        Sensor sensor = sensorRepository.findSensorBySensorName(sensorName);
         List<SensorData> sensorData = sensorDataRepository.findSensorDataBySensor(sensor);
         return  sensorData.stream().map(SensorDataMapper::toDTO).collect(Collectors.toList());
     }
 
-    public List<SensorDataDto> findBySensorAndYearAndMonth(Long sensorId, String year, String month) {
+    //Get Sensor Data List By Year & Month
+    public List<SensorDataDto> getBySensorAndYearAndMonth(Long sensorId, String year, String month) {
+
         Sensor sensor = sensorRepository.findById(sensorId).get();
         List<SensorData> sensorData = sensorDataRepository.findBySensorAndYearAndMonth(sensor,year,month);
         return  sensorData.stream().map(SensorDataMapper::toDTO).collect(Collectors.toList());
     }
 
-    public List<SensorDataDto> findBySensorAndYear(Long sensorId, String year) {
+    //Get Sensor Data By Year
+    public List<SensorDataDto> getSensorDataByYear(Long sensorId, String year) {
+
         Sensor sensor = sensorRepository.findById(sensorId).get();
         List<SensorData> sensorData = sensorDataRepository.findBySensorAndYear(sensor,year);
         return  sensorData.stream().map(SensorDataMapper::toDTO).collect(Collectors.toList());
     }
 
-    public SensorDataDto insertSensorData(SensorDataDto sensorDataDtoInput) {
+    //Save(Post) Sensor Data
+    public SensorDataDto saveSensorData(SensorDataDto sensorDataDtoInput) {
 
         Parameter parameter = parameterRepository.findById(sensorDataDtoInput.getParameterId()).get();
         Sensor sensor = sensorRepository.findById(sensorDataDtoInput.getSensorId()).get();
@@ -55,17 +63,18 @@ public class SensorDataService {
         return SensorDataMapper.toDTO(sensorDataOutput);
     }
 
+    //Update(Put) Sensor Data
     public SensorDataDto updateSensorData(SensorDataDto sensorDataDtoInput) {
 
         SensorData sensorData = sensorDataRepository.findById(sensorDataDtoInput.getDataId()).get();
-        //SensorData sensorData = sensorDataRepository.findBySensorAndParameterAnAndMonth(sensor,parameter,sensorDataDtoInput.getYear(), sensorDataDtoInput.getMonth());
         sensorData.setParameterValue(sensorDataDtoInput.getParameterValue());
         SensorData sensorDataOutput = sensorDataRepository.saveAndFlush(sensorData);
         return SensorDataMapper.toDTO(sensorDataOutput);
     }
 
-    public void deleteSensorData(Long id) {
-        sensorDataRepository.deleteById(id);
+    //Delete Sensor Data By Sensor ID
+    public void deleteSensorData(Long sensorId) {
+        sensorDataRepository.deleteById(sensorId);
     }
 }
 

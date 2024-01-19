@@ -22,9 +22,31 @@ public class ReportService {
 
     private final ParameterRepository parameterRepository;
 
+    //Get Sensor Data Report By Name
+    public ReportDto getSensorReportBySensorName(String sensorName) {
+        List<SensorDataDto> sensorDataDtoList = sensorDataService.getSensorDataByName(sensorName);
+
+        ReportDto reportDto = new ReportDto();
+        SensorDto sensor = sensorService.getSensorById(sensorDataDtoList.get(0).getSensorId());
+        reportDto.setSensorName(sensor.getSensorName());
+
+        boolean result = true;
+
+        for (SensorDataDto sensorDto : sensorDataDtoList) {
+            Parameter parameter = parameterRepository.findById(sensorDto.getParameterId()).get();
+            if (!ApplicationUtilities.performEvaluation(parameter.getParameterName(), sensorDto.getParameterValue())) {
+                result = false;
+                System.out.println("Parameter : " + parameter.getParameterName() + " Does Not Meet Criteria!");
+                break;
+            }
+        }
+        reportDto.setResult(result ? "DRINKABLE" : "NOT SAFE");
+        return reportDto;
+    }
+
     //Get Sensor Data Report By Year
-    public List<ReportDto> findSensorReportByYear(Long sensorId, String year) {
-        List<SensorDataDto> sensorDataDtoList = sensorDataService.findSensorReportByYear(sensorId, year);
+    public List<ReportDto> getSensorReportByYear(Long sensorId, String year) {
+        List<SensorDataDto> sensorDataDtoList = sensorDataService.getSensorDataByYear(sensorId, year);
         List<ReportDto> reportDtoList = new ArrayList<>();
 
         //Get Distinct Year
@@ -49,8 +71,8 @@ public class ReportService {
     }
 
     //Get Sensor Data Report By Year & Month
-    public ReportDto findSensorReportByYearAndMonth(Long sensorId, String year, String month) {
-        List<SensorDataDto> sensorDataDtoList = sensorDataService.findBySensorAndYearAndMonth(sensorId, year, month);
+    public ReportDto getSensorReportByYearAndMonth(Long sensorId, String year, String month) {
+        List<SensorDataDto> sensorDataDtoList = sensorDataService.getBySensorAndYearAndMonth(sensorId, year, month);
 
         ReportDto reportDto = new ReportDto();
         SensorDto sensor = sensorService.getSensorById(sensorDataDtoList.get(0).getSensorId());
@@ -61,7 +83,7 @@ public class ReportService {
 
         for (SensorDataDto sensorDto: sensorDataDtoList) {
             Parameter parameter = parameterRepository.findById(sensorDto.getParameterId()).get();
-            if(!ApplicationUtilities.performEvaluation(parameter.getParameterName(),sensorDto.getParameterValue())) {
+            if (!ApplicationUtilities.performEvaluation(parameter.getParameterName(),sensorDto.getParameterValue())) {
                 result= false;
                 System.out.println("Parameter : " + parameter.getParameterName() + " Does Not Meet Criteria!");
                 break;

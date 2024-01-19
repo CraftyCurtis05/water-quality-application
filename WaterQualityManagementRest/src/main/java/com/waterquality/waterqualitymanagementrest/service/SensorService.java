@@ -1,7 +1,10 @@
 package com.waterquality.waterqualitymanagementrest.service;
 
 import com.waterquality.waterqualitymanagementrest.dto.SensorDto;
+import com.waterquality.waterqualitymanagementrest.entity.Parameter;
 import com.waterquality.waterqualitymanagementrest.entity.Sensor;
+import com.waterquality.waterqualitymanagementrest.entity.SensorData;
+import com.waterquality.waterqualitymanagementrest.mapper.SensorDataMapper;
 import com.waterquality.waterqualitymanagementrest.mapper.SensorMapper;
 import com.waterquality.waterqualitymanagementrest.repository.SensorRepository;
 import org.springframework.stereotype.Service;
@@ -16,72 +19,80 @@ public class SensorService {
 
     private final SensorRepository sensorRepository;
 
-    public SensorDto getSensorByName(String sensorName) {
-        return  SensorMapper.toDTO(sensorRepository.findSensorByName(sensorName));
-    }
-
+    //Get Sensor By Id
     public SensorDto getSensorById(Long sensorId) {
-        //return sensorDtoList.stream().filter( e -> e.getId() == id).findFirst().get();
         return SensorMapper.toDTO(sensorRepository.findById(sensorId).get());
     }
 
-    public List<SensorDto> getListSensorData() {
-        //return sensorRepository.findAll().stream().map(SensorMapper::toDTO).collect(Collectors.toList());
+    //Get Sensor By Name
+    public SensorDto getSensorByName(String sensorName) {
+        return SensorMapper.toDTO(sensorRepository.findSensorBySensorName(sensorName));
+    }
 
+    //Get All Sensors
+    public List<SensorDto> getListOfAllSensors() {
+
+        //return sensorRepository.getAll().stream().map(SensorMapper::toDTO).collect(Collectors.toList());
         List<Sensor> sensorList = sensorRepository.findAll();
-        List<SensorDto> list = new ArrayList<>();
+        List<SensorDto> dtoList = new ArrayList<>();
 
         for (Sensor sensor : sensorList) {
             SensorDto dto = SensorMapper.toDTO(sensor);
-            list.add(dto);
+            dtoList.add(dto);
         }
-        return list;
+        return dtoList;
     }
 
-    public List<SensorDto> getListSensorDataByStatus(boolean status) {
-        return sensorDtoList.stream().filter(e -> e.isActive() == status).toList();
+    //Get Sensors By Status
+    public List<SensorDto> getAllSensorsByStatus(boolean status) {
+
+        //return sensorDtoList.stream().filter(e -> e.isActive() == status).toList();
+        List<Sensor> sensorList = sensorRepository.findAll();
+        List<SensorDto> dtoList = new ArrayList<>();
+
+        for (Sensor sensor : sensorList) {
+            if (sensor.isActive()) {
+                SensorDto dto = SensorMapper.toDTO(sensor);
+                dtoList.add(dto);
+            }
+        }
+        return dtoList;
     }
 
-    public List<SensorDto> add(SensorDto sensorDto) {
-          sensorDtoList.add(sensorDto);
-          return sensorDtoList;
+    //Add(Post) New Sensor
+    public List<SensorDto> addSensor(SensorDto sensorDto) {
 
-        sensorRepository.saveAndFlush(SensorMapper.toEntity(sensorDto));
-        return getListSensorData();
-    }
-
-    public List<SensorDto> update(SensorDto sensorDtoUpdate) {
-        Sensor sensor = SensorMapper.toEntity(sensorDtoUpdate);
-
+        Sensor sensor = SensorMapper.toEntity(sensorDto);
         sensorRepository.saveAndFlush(sensor);
-        return getListSensorData();
+        return getListOfAllSensors();
     }
 
-    public List<SensorDto> delete(String name) {
+    //Update(Put) Sensor
+    public List<SensorDto> updateSensor(SensorDto sensorDtoUpdate) {
 
-        SensorDto sensorDto = getSensorByName(name);
-
-        //delete existing item in the list
-        sensorDtoList.remove(sensorDtoList.indexOf(sensorDto));
-        //update
-
-        return sensorDtoList;
+        Sensor sensor = SensorMapper.toEntity(sensorDtoUpdate);
+        sensorRepository.saveAndFlush(sensor);
+        return getListOfAllSensors();
     }
 
-    public List<SensorDto> patch(String sensorName, String description) {
+    //Update(Patch) Sensor Name & Description
+    public List<SensorDto> patchSensor(String sensorName, String description) {
 
-        SensorDto sensorDto = getSensorByName(sensorName);
-
-        //delete existing item in the list
+        Sensor sensor = sensorRepository.findSensorBySensorName(sensorName);
+        
+        //Delete Existing Item In The List
         sensorDtoList.remove(sensorDtoList.indexOf(sensorDto));
-
-        //update
+        //Update
         sensorDto.setSensorDescription(description);
-
-        //insert
+        //Insert
         sensorDtoList.add(sensorDto);
+        return getListOfAllSensors();
+    }
 
-        return sensorDtoList;
+    //Delete Sensor By Name
+    public void deleteSensor(String sensorName) {
+
+        sensorRepository.deleteSensorBySensorName(sensorName);
     }
 }
 

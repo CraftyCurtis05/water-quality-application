@@ -82,17 +82,6 @@ public class SensorController {
        }
     }
 
-    //Partially Update(Patch) Sensor
-    @PatchMapping("sensor")
-    public List<SensorDto> partiallyUpdateSensor(@RequestBody SensorDto sensorDto) {
-        try {
-            return sensorService.partiallyUpdateSensor(sensorDto);
-        }
-        catch (Exception exception) {
-            throw new SensorDataInvalidException("Error Updating Sensor! Ensure Sensor Data is Formatted Correctly.");
-        }
-    }
-
     //Update(Patch) Sensor Name & Description
     @PatchMapping("sensor")
      public List<SensorDto> patchSensor(@RequestParam(name="sensorName") String sensorName, @RequestParam String description) {
@@ -106,9 +95,9 @@ public class SensorController {
 
     //Delete Sensor By Name
     @DeleteMapping("sensor/{sensorName}")
-    public List<SensorDto> deleteSensor(@PathVariable String sensorName) {
+    public void deleteSensor(@PathVariable String sensorName) {
         try {
-            return sensorService.deleteSensor(sensorName);
+            sensorService.deleteSensor(sensorName);
         }
         catch (Exception exception) {
             throw new SensorNotFoundException("Sensor With Name: " + sensorName + " Not Found!");

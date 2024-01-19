@@ -6,6 +6,8 @@ import com.waterquality.waterqualitymanagementrest.service.ReportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api")
 @RequiredArgsConstructor
@@ -13,14 +15,25 @@ public class ReportController {
 
     private final ReportService reportService;
 
-    //Get Sensor Data Report By Year
-    @GetMapping("report/{sensorId}/{year}")
-    public ReportDto getSensorReportByYear(@PathVariable Long sensorId, @PathVariable String year) {
+    //Get Sensor Data Report By Name
+    @GetMapping("report")
+    public ReportDto getSensorReportBySensorName(@RequestParam(name = "sensorName") String sensorName) {
         try {
-            return reportService.findSensorReportByYear(sensorId, year);
+            return reportService.getSensorReportBySensorName(sensorName);
         }
         catch (Exception exception) {
-            throw new SensorDataNotFoundException("Sensor Data for Sensor ID : " + sensorId + " In Year : " + year + " Not Found!");
+            throw new SensorDataNotFoundException("Sensor Data For Sensor Name : " + sensorName + " Not Found!");
+        }
+    }
+
+    //Get Sensor Data Report By Year
+    @GetMapping("report/{sensorId}/{year}")
+    public List<ReportDto> getSensorReportByYear(@PathVariable Long sensorId, @PathVariable String year) {
+        try {
+            return reportService.getSensorReportByYear(sensorId, year);
+        }
+        catch (Exception exception) {
+            throw new SensorDataNotFoundException("Sensor Data For Sensor ID : " + sensorId + " In Year : " + year + " Not Found!");
         }
     }
 
@@ -28,10 +41,10 @@ public class ReportController {
     @GetMapping("report/{sensorId}/{year}/{month}")
     public ReportDto getSensorReportByYearAndMonth(@PathVariable Long sensorId, @PathVariable String year, @PathVariable String month) {
         try {
-            return reportService.findSensorReportByYearAndMonth(sensorId, year, month);
+            return reportService.getSensorReportByYearAndMonth(sensorId, year, month);
         }
         catch (Exception exception) {
-            throw new SensorDataNotFoundException("Sensor Data for Sensor ID : " + sensorId + " In Year/Month : " + year + "/" + month + " Not Found!");
+            throw new SensorDataNotFoundException("Sensor Data For Sensor ID : " + sensorId + " In Year/Month : " + year + "/" + month + " Not Found!");
         }
     }
 }
