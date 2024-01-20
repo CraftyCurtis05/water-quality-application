@@ -2,7 +2,6 @@ package com.waterquality.waterqualitymanagementrest.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 @Entity
 @Table(name="wq_sensor") //Table Name
@@ -12,9 +11,10 @@ import org.springframework.data.annotation.Id;
 @NoArgsConstructor
 public class Sensor {
 
-    @Id //Primary Key
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //AUTO, IDENTITY, SEQUENCE, TABLE, TEMPORAL(date, time, etc)
-    private long sensorId;
+    @Column(name = "sensor_id", nullable = false)
+    private Long sensorId;
 
     @Column(name = "sensor_name", nullable = false, length = 20)
     private String sensorName;
@@ -22,6 +22,6 @@ public class Sensor {
     @Column(name = "is_active", nullable = false, length = 5)
     private boolean isActive;
 
-    @Column(name = "description", nullable = false, length = 30)
+    @Column(name = "location_description", nullable = false, length = 30)
     private String sensorDescription; //Location
 }

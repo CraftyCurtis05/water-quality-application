@@ -8,6 +8,8 @@ import com.waterquality.waterqualitymanagementrest.mapper.SensorDataMapper;
 import com.waterquality.waterqualitymanagementrest.repository.ParameterRepository;
 import com.waterquality.waterqualitymanagementrest.repository.SensorDataRepository;
 import com.waterquality.waterqualitymanagementrest.repository.SensorRepository;
+import lombok.NoArgsConstructor;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 

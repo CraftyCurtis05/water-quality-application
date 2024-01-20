@@ -3,7 +3,7 @@ package com.waterquality.waterqualitymanagementrest.util;
 public class ApplicationUtilities {
     public static boolean performEvaluation(String parameter, Double value) {
 
-        if(parameter.equals("pH")) { //: 6.5 < value < 8.5
+        if(parameter.equals("pH")) { //6.5 < value < 8.5
             if(value >= 6.5 && value <= 8.5) {
                 return true;
             } else {

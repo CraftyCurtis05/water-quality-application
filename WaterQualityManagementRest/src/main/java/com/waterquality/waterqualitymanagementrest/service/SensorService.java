@@ -75,19 +75,21 @@ public class SensorService {
         return getListOfAllSensors();
     }
 
-    //Update(Patch) Sensor Name & Description
-    public List<SensorDto> patchSensor(String sensorName, String description) {
+//    //Update(Patch) Sensor Name & Description
+//    public List<SensorDto> patchSensor(String sensorName, String description) {
+//
+//        Sensor sensor = sensorRepository.findSensorBySensorName(sensorName);
+//
+//        //Delete Existing Item In The List
+//        sensorDtoList.remove(sensorDtoList.indexOf(sensorDto));
 
-        Sensor sensor = sensorRepository.findSensorBySensorName(sensorName);
-        
-        //Delete Existing Item In The List
-        sensorDtoList.remove(sensorDtoList.indexOf(sensorDto));
-        //Update
-        sensorDto.setSensorDescription(description);
-        //Insert
-        sensorDtoList.add(sensorDto);
-        return getListOfAllSensors();
-    }
+//        //Update
+//        sensorDto.setSensorDescription(description);
+    
+//        //Insert
+//        sensorDtoList.add(sensorDto);
+//        return getListOfAllSensors();
+//    }
 
     //Delete Sensor By Name
     public void deleteSensor(String sensorName) {

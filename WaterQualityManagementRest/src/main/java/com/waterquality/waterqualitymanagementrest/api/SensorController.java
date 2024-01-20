@@ -82,16 +82,16 @@ public class SensorController {
        }
     }
 
-    //Update(Patch) Sensor Name & Description
-    @PatchMapping("sensor")
-     public List<SensorDto> patchSensor(@RequestParam(name="sensorName") String sensorName, @RequestParam String description) {
-        try {
-            return sensorService.patchSensor(sensorName, description);
-        }
-        catch (Exception exception) {
-            throw new SensorDataInvalidException("Error Updating Sensor! Ensure Sensor Data is Formatted Correctly.");
-        }
-     }
+//    //Update(Patch) Sensor Name & Description
+//    @PatchMapping("sensor")
+//     public List<SensorDto> patchSensor(@RequestParam(name="sensorName") String sensorName, @RequestParam String description) {
+//        try {
+//            return sensorService.patchSensor(sensorName, description);
+//        }
+//        catch (Exception exception) {
+//            throw new SensorDataInvalidException("Error Updating Sensor! Ensure Sensor Data is Formatted Correctly.");
+//        }
+//     }
 
     //Delete Sensor By Name
     @DeleteMapping("sensor/{sensorName}")
