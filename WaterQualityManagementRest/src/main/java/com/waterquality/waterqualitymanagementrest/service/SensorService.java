@@ -1,10 +1,7 @@
 package com.waterquality.waterqualitymanagementrest.service;
 
 import com.waterquality.waterqualitymanagementrest.dto.SensorDto;
-import com.waterquality.waterqualitymanagementrest.entity.Parameter;
 import com.waterquality.waterqualitymanagementrest.entity.Sensor;
-import com.waterquality.waterqualitymanagementrest.entity.SensorData;
-import com.waterquality.waterqualitymanagementrest.mapper.SensorDataMapper;
 import com.waterquality.waterqualitymanagementrest.mapper.SensorMapper;
 import com.waterquality.waterqualitymanagementrest.repository.SensorRepository;
 import org.springframework.stereotype.Service;
@@ -74,22 +71,6 @@ public class SensorService {
         sensorRepository.saveAndFlush(sensor);
         return getListOfAllSensors();
     }
-
-//    //Update(Patch) Sensor Name & Description
-//    public List<SensorDto> patchSensor(String sensorName, String description) {
-//
-//        Sensor sensor = sensorRepository.findSensorBySensorName(sensorName);
-//
-//        //Delete Existing Item In The List
-//        sensorDtoList.remove(sensorDtoList.indexOf(sensorDto));
-
-//        //Update
-//        sensorDto.setSensorDescription(description);
-    
-//        //Insert
-//        sensorDtoList.add(sensorDto);
-//        return getListOfAllSensors();
-//    }
 
     //Delete Sensor By Name
     public void deleteSensor(String sensorName) {

@@ -1,5 +1,6 @@
 package com.waterquality.waterqualitymanagementrest.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
@@ -15,9 +16,12 @@ public class SensorDataDto {
 
     private long parameterId;
 
+    @NotBlank(message = "Year Should NOT Be Blank!")
     private String year;
 
+    @NotBlank(message = "Month Should NOT Be Blank!")
     private String month;
 
+    @NotBlank(message = "Parameter Value Should NOT Be Blank!")
     private double parameterValue;
 }

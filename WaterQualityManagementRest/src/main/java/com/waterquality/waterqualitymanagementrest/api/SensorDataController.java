@@ -4,6 +4,7 @@ import com.waterquality.waterqualitymanagementrest.dto.SensorDataDto;
 import com.waterquality.waterqualitymanagementrest.exception.SensorDataInvalidException;
 import com.waterquality.waterqualitymanagementrest.exception.SensorNotFoundException;
 import com.waterquality.waterqualitymanagementrest.service.SensorDataService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,7 +63,7 @@ public class SensorDataController {
 
     //Save(Post) Sensor Data
     @PostMapping("sensordata")
-    public SensorDataDto saveSensorData(@RequestBody SensorDataDto sensorDataDto) {
+    public SensorDataDto saveSensorData(@Valid @RequestBody SensorDataDto sensorDataDto) {
         try {
             return sensorDataService.saveSensorData(sensorDataDto);
         }
@@ -73,7 +74,7 @@ public class SensorDataController {
 
     //Update(Put) Sensor Data
     @PutMapping("sensordata")
-    public SensorDataDto updateSensorData(@RequestBody SensorDataDto sensorDataDto) {
+    public SensorDataDto updateSensorData(@Valid @RequestBody SensorDataDto sensorDataDto) {
         try {
             return sensorDataService.updateSensorData(sensorDataDto);
         }

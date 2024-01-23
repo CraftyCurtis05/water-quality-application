@@ -6,9 +6,6 @@ import lombok.*;
 @Entity
 @Table(name="wq_parameter") //Table Name
 @Data
-@Getter
-@Setter
-@NoArgsConstructor
 public class Parameter {
 
     @Id //Primary Key

@@ -1,5 +1,6 @@
 package com.waterquality.waterqualitymanagementrest.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
@@ -11,5 +12,6 @@ public class ParameterDto {
 
     private long parameterId;
 
+    @NotBlank(message = "Name Should NOT Be Blank!")
     private String parameterName;
 }

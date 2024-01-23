@@ -4,7 +4,9 @@ import com.waterquality.waterqualitymanagementrest.dto.SensorDto;
 import com.waterquality.waterqualitymanagementrest.exception.SensorDataInvalidException;
 import com.waterquality.waterqualitymanagementrest.exception.SensorNotFoundException;
 import com.waterquality.waterqualitymanagementrest.service.SensorService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -62,7 +64,8 @@ public class SensorController {
 
    //Add(Post) New Sensor
    @PostMapping("sensor")
-   public List<SensorDto> addSensor(@RequestBody SensorDto sensorDto) {
+   @ResponseStatus(value = HttpStatus.ACCEPTED)
+   public List<SensorDto> addSensor(@Valid @RequestBody SensorDto sensorDto) {
         try {
             return sensorService.addSensor(sensorDto);
         }
@@ -72,8 +75,9 @@ public class SensorController {
    }
 
    //Update(Put) Sensor
+   //TODO: MethodArgumentNotValidException
     @PutMapping("sensor")
-    public List<SensorDto> updateSensor(@RequestBody SensorDto sensorDto) {
+    public List<SensorDto> updateSensor(@Valid @RequestBody SensorDto sensorDto) {
        try {
            return sensorService.updateSensor(sensorDto);
        }
@@ -81,17 +85,6 @@ public class SensorController {
            throw new SensorDataInvalidException("Error Updating Sensor! Ensure Sensor Data is Formatted Correctly.");
        }
     }
-
-//    //Update(Patch) Sensor Name & Description
-//    @PatchMapping("sensor")
-//     public List<SensorDto> patchSensor(@RequestParam(name="sensorName") String sensorName, @RequestParam String description) {
-//        try {
-//            return sensorService.patchSensor(sensorName, description);
-//        }
-//        catch (Exception exception) {
-//            throw new SensorDataInvalidException("Error Updating Sensor! Ensure Sensor Data is Formatted Correctly.");
-//        }
-//     }
 
     //Delete Sensor By Name
     @DeleteMapping("sensor/{sensorName}")

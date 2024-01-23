@@ -6,9 +6,6 @@ import lombok.*;
 @Entity
 @Table(name="wq_sensor_data") //Table Name
 @Data
-@Getter
-@Setter
-@NoArgsConstructor
 public class SensorData {
 
     @Id //Primary Key
