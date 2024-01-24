@@ -39,10 +39,10 @@ public class RestControllerExceptionHandler {
     //Invalid Request Payload: This is the most common cause. For instance, when a client sends data that doesn't meet the validation criteria defined in the DTO (Data Transfer Object).
     //Binding Errors: When the expected format of an incoming request body doesn't match the expected format.
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(value = HttpStatus.ACCEPTED)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ErrorMessage sensorDataInvalidException(SensorDataInvalidException sensorDataInvalidException) {
 
-        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.ACCEPTED.value(), new Date(),sensorDataInvalidException.getMessage());
+        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.NOT_FOUND.value(), new Date(),sensorDataInvalidException.getMessage());
 
         return errorMessage;
     }
