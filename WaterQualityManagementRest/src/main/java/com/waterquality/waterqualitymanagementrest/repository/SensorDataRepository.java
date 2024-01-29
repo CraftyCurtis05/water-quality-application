@@ -3,6 +3,7 @@ package com.waterquality.waterqualitymanagementrest.repository;
 import com.waterquality.waterqualitymanagementrest.entity.Sensor;
 import com.waterquality.waterqualitymanagementrest.entity.SensorData;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,5 +23,9 @@ public interface SensorDataRepository extends JpaRepository<SensorData, Long> {
 
     List<SensorData> findBySensorAndYear(Sensor sensor, String year);
 
-
+//    @Query("select sd from SensorData sd where sd.year = ?1")
+//    List<SensorData> findResults_positionedParameter(String year);
+//
+//    @Query("select sd from SensorData sd where sd.year = :year")
+//    List<SensorData> findResults_namedParameter(String year);
 }

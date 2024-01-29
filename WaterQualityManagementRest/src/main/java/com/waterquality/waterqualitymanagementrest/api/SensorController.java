@@ -7,6 +7,7 @@ import com.waterquality.waterqualitymanagementrest.service.SensorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,6 +43,7 @@ public class SensorController {
 
     //Get All Sensors
     @GetMapping("sensor/all")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')")
     public List<SensorDto> getListOfAllSensors() {
         try {
             return sensorService.getListOfAllSensors();
@@ -65,6 +67,7 @@ public class SensorController {
    //Add(Post) New Sensor
    @PostMapping("sensor")
    @ResponseStatus(value = HttpStatus.ACCEPTED)
+   @PreAuthorize("hasRole('ADMIN')")
    public List<SensorDto> addSensor(@Valid @RequestBody SensorDto sensorDto) {
         try {
             return sensorService.addSensor(sensorDto);
@@ -77,6 +80,7 @@ public class SensorController {
    //Update(Put) Sensor
    //TODO: MethodArgumentNotValidException
     @PutMapping("sensor")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<SensorDto> updateSensor(@Valid @RequestBody SensorDto sensorDto) {
        try {
            return sensorService.updateSensor(sensorDto);
@@ -88,6 +92,7 @@ public class SensorController {
 
     //Delete Sensor By Name
     @DeleteMapping("sensor/{sensorName}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteSensor(@PathVariable String sensorName) {
         try {
             sensorService.deleteSensor(sensorName);

@@ -1,6 +1,5 @@
 package com.waterquality.waterqualitymanagementrest.entity;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -11,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table( name = "users",
+@Table( name = "wq_users",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
                 @UniqueConstraint(columnNames = "email")

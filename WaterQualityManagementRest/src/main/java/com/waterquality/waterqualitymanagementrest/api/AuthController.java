@@ -1,7 +1,7 @@
 package com.waterquality.waterqualitymanagementrest.api;
 
 import com.waterquality.waterqualitymanagementrest.dto.ErrorMessage;
-import com.waterquality.waterqualitymanagementrest.dto.SignupRequest;
+import com.waterquality.waterqualitymanagementrest.dto.request.SignupRequest;
 import com.waterquality.waterqualitymanagementrest.entity.Role;
 import com.waterquality.waterqualitymanagementrest.entity.User;
 import com.waterquality.waterqualitymanagementrest.repository.RoleRepository;

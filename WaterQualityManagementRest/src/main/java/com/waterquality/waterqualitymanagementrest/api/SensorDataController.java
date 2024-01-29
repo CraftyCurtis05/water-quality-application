@@ -6,6 +6,7 @@ import com.waterquality.waterqualitymanagementrest.exception.SensorNotFoundExcep
 import com.waterquality.waterqualitymanagementrest.service.SensorDataService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -85,6 +86,7 @@ public class SensorDataController {
 
     //Delete Sensor Data By Sensor ID
     @DeleteMapping("sensordata/{sensorId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteSensorData(@PathVariable Long sensorId) {
         try {
             sensorDataService.deleteSensorData(sensorId);
