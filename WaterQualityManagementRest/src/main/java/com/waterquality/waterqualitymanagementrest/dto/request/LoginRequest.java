@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LoginRequest
 {
-    @NotBlank
+    @NotBlank (message = "Username Should NOT Be Blank!")
     private String username;
-    @NotBlank
+
+    @NotBlank (message = "Password Should NOT Be Blank!")
     private String password;
 }

@@ -1,5 +1,6 @@
 package com.waterqualityconsumer.waterqualitymanagementrestclient.service;
 
+import com.waterqualityconsumer.waterqualitymanagementrestclient.dto.SensorDataDto;
 import com.waterqualityconsumer.waterqualitymanagementrestclient.dto.SensorDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -14,26 +15,26 @@ public class SensorClient {
 
     private final RestClient restClient;
 
-    //Get By ID
-    public SensorDto getById(Long id) {
+    //Get Sensor By Id
+    public SensorDto getSensorById(Long sensorId) {
         return restClient.get()
-                .uri("/api/sensor/{id}",id)
+                .uri("/api/sensor/{sensorId}",sensorId)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(SensorDto.class);
     }
 
-    //Get By Name
-    public SensorDto getByName(String name) {
+    //Get Sensor By Name
+    public SensorDto getSensorByName(String sensorName) {
         return restClient.get()
-                .uri("/api/sensor?sensor_name={name}",name)
+                .uri("/api/sensor?sensor_name={name}",sensorName)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(SensorDto.class);
     }
 
-    //Get all sensors
-    public List<SensorDto> getAll() {
+    //Get All Sensors
+    public List<SensorDto> getListOfAllSensors() {
         return restClient.get()
                 .uri("/api/sensor/all")
                 .accept(MediaType.APPLICATION_JSON)
@@ -41,10 +42,17 @@ public class SensorClient {
                 .body(List.class);
     }
 
-    //Save(POST) new sensor
-    public List<SensorDto> save() {
+    //Get Sensors By Status
+    public List<SensorDto> getAllSensorsByStatus(boolean active) {
+        return restClient.get()
+                .uri("/api/sensor/list")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(List.class);
+    }
 
-        SensorDto sensorDto = new SensorDto(5,"SNS-5",false,"Atlanta");
+    //Add(Post) New Sensor
+    public List<SensorDto> addSensor(SensorDto sensorDto) {
 
         return restClient.post()
                 .uri("/api/sensor")
@@ -54,10 +62,8 @@ public class SensorClient {
                 .body(List.class);
     }
 
-    //Update(PUT) sensor
-    public List<SensorDto> update() {
-
-        SensorDto sensorDto = new SensorDto(5,"SNS-5",true,"Atlanta");
+    //Update(Put) Sensor
+    public List<SensorDto> updateSensor(SensorDto sensorDto) {
 
         return restClient.put()
                 .uri("/api/sensor")
@@ -67,10 +73,11 @@ public class SensorClient {
                 .body(List.class);
     }
 
-    //Delete sensor by name
-    public List<SensorDto> delete(String name) {
+    //Delete Sensor By Name
+    public List<SensorDto> deleteSensor(String sensorName) {
+
         return restClient.delete()
-                .uri("api/sensor/{sensor_name}",name)
+                .uri("api/sensor/{sensor_name}",sensorName)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(List.class);

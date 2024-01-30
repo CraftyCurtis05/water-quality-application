@@ -20,7 +20,7 @@ public class SensorDataController {
 
     //Get Sensor Data By Id
     @GetMapping("sensordata/{sensorId}")
-    public SensorDataDto getSensorDataById(@PathVariable Long sensorId) {
+    public List<SensorDataDto> getSensorDataById(@PathVariable Long sensorId) {
         try {
             return sensorDataService.getSensorDataById(sensorId);
         }
@@ -51,7 +51,7 @@ public class SensorDataController {
         }
     }
 
-    //Get Sensor Data By Year
+    //Get Sensor Data List By Year
     @GetMapping("sensordata/{sensorId}/{year}")
     public List<SensorDataDto> getSensorDataListByYear(@PathVariable Long sensorId, @PathVariable String year) {
         try {

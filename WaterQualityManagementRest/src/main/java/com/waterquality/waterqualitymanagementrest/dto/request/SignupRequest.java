@@ -14,18 +14,18 @@ import java.util.Set;
 @NoArgsConstructor
 public class SignupRequest {
 
-    @NotBlank
+    @NotBlank (message = "Username Should NOT Be Blank!")
     @Size(min = 3, max = 20)
     private String username;
 
-    @NotBlank
+    @NotBlank (message = "Email Should NOT Be Blank!")
     @Size(max = 50)
     @Email
     private String email;
 
     private Set<String> role;
 
-    @NotBlank
+    @NotBlank (message = "Password Should NOT Be Blank!")
     @Size(min = 6, max = 40)
     private String password;
 }

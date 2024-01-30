@@ -28,18 +28,6 @@ public class ReportController {
         }
     }
 
-    //Get Sensor Data Report By Year
-    @GetMapping("report/{sensorId}/{year}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public List<ReportDto> getSensorReportByYear(@PathVariable Long sensorId, @PathVariable String year) {
-        try {
-            return reportService.getSensorReportByYear(sensorId, year);
-        }
-        catch (Exception exception) {
-            throw new SensorDataNotFoundException("Sensor Data For Sensor ID : " + sensorId + " In Year : " + year + " Not Found!");
-        }
-    }
-
     //Get Sensor Data Report By Year & Month
     @GetMapping("report/{sensorId}/{year}/{month}")
     @PreAuthorize("hasRole('ADMIN')")
@@ -49,6 +37,18 @@ public class ReportController {
         }
         catch (Exception exception) {
             throw new SensorDataNotFoundException("Sensor Data For Sensor ID : " + sensorId + " In Year/Month : " + year + "/" + month + " Not Found!");
+        }
+    }
+
+    //Get Sensor Data Report By Year
+    @GetMapping("report/{sensorId}/{year}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<ReportDto> getSensorReportByYear(@PathVariable Long sensorId, @PathVariable String year) {
+        try {
+            return reportService.getSensorReportByYear(sensorId, year);
+        }
+        catch (Exception exception) {
+            throw new SensorDataNotFoundException("Sensor Data For Sensor ID : " + sensorId + " In Year : " + year + " Not Found!");
         }
     }
 }

@@ -7,13 +7,17 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class SensorDto {
+public class SensorDataDto {
+
+    private long dataId;
 
     private long sensorId;
 
-    private String sensorName;
+    private long parameterId;
 
-    private boolean isActive;
+    private String year;
 
-    private String sensorDescription;
+    private String month;
+
+    private double parameterValue;
 }

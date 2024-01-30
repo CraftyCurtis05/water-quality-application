@@ -55,12 +55,12 @@ public class SensorController {
 
     //Get Sensors By Status
     @GetMapping("sensor/list")
-   public List<SensorDto> getAllSensorsByStatus(@RequestParam(name = "status") boolean status) {
+   public List<SensorDto> getAllSensorsByStatus(@RequestParam(name = "active") boolean active) {
         try {
-            return sensorService.getAllSensorsByStatus(status);
+            return sensorService.getAllSensorsByStatus(active);
         }
         catch (Exception exception) {
-            throw new SensorNotFoundException("Sensor Data With Active Status : " + status + " Not Found!");
+            throw new SensorNotFoundException("Sensor Data With Active Status : " + active + " Not Found!");
         }
    }
 
@@ -78,7 +78,6 @@ public class SensorController {
    }
 
    //Update(Put) Sensor
-   //TODO: MethodArgumentNotValidException
     @PutMapping("sensor")
     @PreAuthorize("hasRole('ADMIN')")
     public List<SensorDto> updateSensor(@Valid @RequestBody SensorDto sensorDto) {

@@ -7,13 +7,13 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class SensorDto {
-
-    private long sensorId;
+public class ReportDto {
 
     private String sensorName;
 
-    private boolean isActive;
+    private String month;
 
-    private String sensorDescription;
+    private String year;
+
+    private String result;
 }

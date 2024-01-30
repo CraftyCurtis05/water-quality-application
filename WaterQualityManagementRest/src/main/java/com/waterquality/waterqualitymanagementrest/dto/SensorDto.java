@@ -19,7 +19,7 @@ public class SensorDto {
     private String sensorName;
 
     @NotNull(message = "Should Be TRUE If Active OR FALSE If Not Active!")
-    private boolean isActive;
+    private boolean active;
 
     @NotBlank(message = "Description Should NOT Be Blank!")
     private String sensorDescription;
