@@ -13,7 +13,7 @@ This project was completed solo as part of a **Spring Boot** course. It provides
 
 - **User Registration & Authentication**: Secure user login with role-based access control.
 - **Water Quality Check**: Determine whether water at a given location is drinkable using sensor data.
-- **CRUD Methods for Sensor Data**: Create, read, update, and delete sensor data in PostgreSQL.
+- **CRUD Methods for Sensor Data**: Create, read, update, and delete sensor data in **PostgreSQL**.
 - **Reports**: Generate reports based on water quality sensor readings.
 - **Environment Configuration**: Multiple application configurations for development, testing, and production environments.
 - **Exception Handling**: Custom exception handling for better error management.
