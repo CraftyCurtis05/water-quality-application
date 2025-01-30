@@ -1,6 +1,6 @@
-# Water Quality Detection Application
+# Water Quality Application
 
-Welcome to the Water Quality Detection Application! This app allows users to check whether the water at a specific location is drinkable based on sensor data, utilizing a **Spring Boot** backend and **PostgreSQL** database for data management.
+Welcome to the Water Quality Application! This app allows users to check whether the water at a specific location is drinkable based on sensor data, utilizing a **Spring Boot** backend and **PostgreSQL** database for data management.
 
 ---
 
